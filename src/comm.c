@@ -344,7 +344,7 @@ int main ( int argc, char **argv )
 
     halt_action.sa_handler = halt_mud;
     sigemptyset ( &halt_action.sa_mask );
-    halt_action.sa_flags = SA_NOMASK;
+    halt_action.sa_flags = SA_NODEFER;
 
     ignore_action.sa_handler = SIG_IGN;
     sigemptyset ( &ignore_action.sa_mask );
@@ -352,7 +352,7 @@ int main ( int argc, char **argv )
 
     alarm_action.sa_handler = sigalrm;
     sigemptyset ( &alarm_action.sa_mask );
-    alarm_action.sa_flags = SA_NOMASK;
+    alarm_action.sa_flags = SA_NODEFER;
 
     sigaction ( SIGPIPE, &ignore_action, NULL );    /* who cares about pipes? */
     sigaction ( SIGHUP, &ignore_action, NULL ); /* stay alive if user quits */

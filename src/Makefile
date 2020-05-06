@@ -5,7 +5,7 @@ all:	 clean build sd
 
 CC      = gcc
 PROF    = -ggdb
-C_FLAGS = -Wall -O $(PROF) $(NOCRYPT)
+C_FLAGS = -Wall -O $(PROF) $(NOCRYPT) -Dunix
 L_FLAGS = $(PROF)
 LIBS = -lz -lpthread
 
