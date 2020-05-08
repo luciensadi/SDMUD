@@ -1,6 +1,6 @@
 /***************************************************************************
 *   Original Diku Mud copyright (C) 1990, 1991 by Sebastian Hammer,        *
-*   Michael Seifert, Hans Henrik Stærfeldt, Tom Madsen, and Katja Nyboe.   *
+*   Michael Seifert, Hans Henrik Stï¿½rfeldt, Tom Madsen, and Katja Nyboe.   *
 *                                                                          *
 *   Merc Diku Mud improvements copyright (C) 1992, 1993 by Michael         *
 *   Chastain, Michael Quan, and Mitchell Tse.                              *
@@ -56,7 +56,7 @@ char *top_string;
  * Increase MAX_STRING if you have too.
  * Tune the others only if you understand what you're doing.
  */
-#define			MAX_STRING	2100*1024
+#define			MAX_STRING	21000*1024
 #define			MAX_PERM_BLOCK	131072
 
 void *rgFreeList[MAX_MEM_LIST];
@@ -702,7 +702,7 @@ void load_helps( FILE *fp, char *fname )
             help_greetingjj = pHelp->text;
         if ( !str_cmp ( pHelp->keyword, "kkgreeting11" ) )
             help_greetingkk = pHelp->text;
-	    
+
         if ( !str_cmp ( pHelp->keyword, "authors" ) )
             help_authors = pHelp->text;
         if ( !str_cmp ( pHelp->keyword, "login" ) )
@@ -730,7 +730,7 @@ void load_helps( FILE *fp, char *fname )
 
 
 /*
- * Snarf a mob section.  old style 
+ * Snarf a mob section.  old style
  */
 void load_old_mob ( FILE * fp )
 {
@@ -877,7 +877,7 @@ void load_old_mob ( FILE * fp )
 }
 
 /*
- * Snarf an obj section.  old style 
+ * Snarf an obj section.  old style
  */
 void load_old_obj ( FILE * fp )
 {
@@ -1601,7 +1601,7 @@ void fix_exits ( void )
 		if ( ( pexit     = pRoomIndex->exit[door]       ) != NULL
 		&&   ( to_room   = pexit->u1.to_room            ) != NULL
 		&&   ( pexit_rev = to_room->exit[rev_dir[door]] ) != NULL
-		&&   pexit_rev->u1.to_room != pRoomIndex 
+		&&   pexit_rev->u1.to_room != pRoomIndex
 		&&   (pRoomIndex->vnum < 1200 || pRoomIndex->vnum > 1299)
                 &&   (pRoomIndex->vnum != 10525)
                 &&   (pRoomIndex->vnum != 8705)
@@ -2618,7 +2618,7 @@ void clear_char ( CHAR_DATA * ch )
     ch->max_mana = 100;
     ch->move = 100;
     ch->max_move = 100;
-    
+
     ch->stance[1]       = 0;
     ch->stance[2]       = 0;
     ch->stance[3]       = 0;
@@ -2629,7 +2629,7 @@ void clear_char ( CHAR_DATA * ch )
     ch->stance[8]		= 0;
     ch->stance[9]		= 0;
     ch->stance[10]		= 0;
-        
+
     ch->on = NULL;
     for ( i = 0; i < MAX_STATS; i++ )
     {
@@ -3299,7 +3299,7 @@ void *alloc_mem ( int sMem )
  */
 void _free_mem ( void *pMem, int sMem, char *file, int line )
 {
-    pthread_mutex_lock(&memory_mutex);    
+    pthread_mutex_lock(&memory_mutex);
     int iList;
     int *magic;
 
@@ -3405,7 +3405,7 @@ void _free_string ( char *pstr, char *file, int line )
          ( pstr >= string_space && pstr < top_string ) )
         return;
 
-    length = strlen ( pstr ) + 1;	
+    length = strlen ( pstr ) + 1;
     _free_mem ( pstr, length, file, line );
     pstr = NULL;
     return;
@@ -3480,7 +3480,7 @@ long get_area_level ( AREA_DATA * pArea )
 /* Code by Nebseni of Clandestine MUD ...
    thanks to Erwin Andreasan for help with sscanf */
 /* Returns long (MAX_LEVEL + 1)*low-level + high-level */
-/* Example: Area with credits line: 
+/* Example: Area with credits line:
        {10 25} Nebseni  Clandestine Golf Course
    Max level 220
    returns 221*10 + 25 = 2235 */
@@ -3576,11 +3576,11 @@ void do_areas( CHAR_DATA *ch, char *argument )
     lo_level = convert_level(arg1) ?
     URANGE(1,convert_level(arg1),MAX_LEVEL) : 0;
     hi_level = convert_level(arg2) ?
-    URANGE(1,convert_level(arg2),MAX_LEVEL) : 
+    URANGE(1,convert_level(arg2),MAX_LEVEL) :
     convert_level(arg1) ? lo_level :
     IS_IMMORTAL(ch) ? MAX_LEVEL : LEVEL_IMMORTAL - 1;
 
-    
+
     for ( pArea = area_first_sorted ; ; )
     {
     if (pArea == NULL)
@@ -3595,7 +3595,7 @@ void do_areas( CHAR_DATA *ch, char *argument )
       {
         send_to_char( "\n\r", ch );
       }
-      col = !col; 
+      col = !col;
     }
     if (pArea != NULL)
       pArea = pArea->next_sort;
@@ -3702,13 +3702,13 @@ CH_CMD ( do_areas )
     page_to_char ( buffer_string ( output ), ch );
 //    free_buf ( output );
     buffer_free ( output );
-    
+
     return;
 }
 
 CH_CMD ( do_memory )
 {
-    char buf[MAX_STRING_LENGTH];    
+    char buf[MAX_STRING_LENGTH];
     sprintf ( buf, "Affects %5d\n\r", top_affect );
     send_to_char ( buf, ch );
     sprintf ( buf, "Areas   %5d\n\r", top_area );
@@ -3750,7 +3750,7 @@ CH_CMD ( do_memory )
 CH_CMD ( do_mudinfo )
 {
     BUFFER2 *output;
-    char buf[MAX_STRING_LENGTH];    
+    char buf[MAX_STRING_LENGTH];
     output = buffer_new ( 1337 );
     sprintf ( buf, "\n\r          {dOn Shattered Dreams, there are {W%d{d areas which contain {W%d{d\n\r", top_area, top_room );
     buffer_strcat ( output, buf );
@@ -3771,15 +3771,15 @@ CH_CMD ( do_mudinfo )
     sprintf ( buf, "          been made to SD, and {W%ld{d complete logins have been done.\n\r", logins_today );
     buffer_strcat ( output, buf );
     sprintf ( buf, "\n\r          The max people online at once today was {W%d{d, the most\n\r", max_on );
-    buffer_strcat ( output, buf );        
+    buffer_strcat ( output, buf );
     sprintf ( buf, "          online ever at once was {W%d{d.\n\r", max_ever );
-    buffer_strcat ( output, buf );        
+    buffer_strcat ( output, buf );
     sprintf ( buf, "\n\r          People have been active, executing {W%ld{d commands and {W%ld{d socials,\n\r", commands_today, socials_today );
     buffer_strcat ( output, buf );
     sprintf ( buf, "          as well as having died to {W%ld{d mobiles and killed {W%ld{d.\n\r", mobdeaths_today, mobkills_today );
-    buffer_strcat ( output, buf );    
+    buffer_strcat ( output, buf );
     sprintf ( buf, "\n\r          {W%d{d real pkills have occured, along with {W%d{d arena matches.\n\r", pkills_today, arenas_today );
-    buffer_strcat ( output, buf );    
+    buffer_strcat ( output, buf );
     sprintf ( buf, "\n\r          Our website, {Wwww.sdmud.com{d is currently up and runnning.\n\r" );
     buffer_strcat ( output, buf );
     sprintf ( buf, "          Don't forget to go there and post your picture!\n\r" );
@@ -4019,7 +4019,7 @@ int number_bits ( int width )
  */
 
 /* I noticed streaking with this random number generator, so I switched
-   back to the system srandom call.  If this doesn't work for you, 
+   back to the system srandom call.  If this doesn't work for you,
    define OLD_RAND to use the old system -- Alander */
 
 #if defined (OLD_RAND)
@@ -4443,7 +4443,7 @@ void append_file ( CHAR_DATA * ch, char *file, char *str )
 void debug_log ( char *str )
 {
   int i;
-  
+
  for (i=0; i < MAX_DEBUG; i++)
  {
     if (((last_debug[i]) == 0 ) || ((last_debug[i]) == str ))
@@ -4506,7 +4506,7 @@ void bug ( const char *str, int param )
 
         sprintf ( buf, "[*****] FILE: %s LINE: %d", strArea, iLine );
         log_string ( buf );
-/* RT removed because we don't want bugs shutting the mud 
+/* RT removed because we don't want bugs shutting the mud
 	if ( ( fp = file_open( "shutdown.txt", "a" ) ) != NULL )
 	{
 	    fprintf( fp, "[*****] %s\n", buf );
@@ -4519,7 +4519,7 @@ void bug ( const char *str, int param )
     sprintf ( buf + strlen ( buf ), str, param );
     log_string ( buf );
     wiznet ( buf, NULL, NULL, WIZ_BUGS, 0, 0 );
-/* RT removed due to bug-file spamming 
+/* RT removed due to bug-file spamming
     if ( ( fp = file_open( BUG_FILE, "a" ) ) != NULL )
     {
 	fprintf( fp, "%s\n", buf );
@@ -4848,4 +4848,3 @@ void free_runbuf(DESCRIPTOR_DATA *d)
   }
   return;
 }
-
